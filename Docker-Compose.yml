@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  restic:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      # Use a high port to avoid conflicts with a locally running SMB server
+      - "1445:445"
+    privileged: true
+    environment:
+      # Delegate environment variables to the container
+      - SMB_PASS
+      - RESTIC_REPOSITORY
+      - RESTIC_PASSWORD
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
